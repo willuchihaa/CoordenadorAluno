@@ -18,13 +18,11 @@ public class AlunoServiceImpl implements AlunoService{
     public AlunoServiceImpl(AlunoRepository alunoRepository) {
         this.alunoRepository = alunoRepository;
     }
-
     @Override
     public Aluno createAluno(AlunoDto alunoDto) {
         Aluno aluno = new Aluno();
         return this.alunoRepository.save(aluno);
     }
-
     @Override
     public List<Aluno> pegarAlunos() {
         return this.alunoRepository.findAll();
@@ -53,8 +51,7 @@ public class AlunoServiceImpl implements AlunoService{
     
     @Override
     public void deleteById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        this.alunoRepository.deleteById(id);
     }
     
 }

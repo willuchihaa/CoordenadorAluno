@@ -1,7 +1,6 @@
 package br.will.classroom.controller.dto;
 
 import br.will.classroom.model.coordenador.Coordenador;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,14 +17,16 @@ public class CoordenadorDto {
     private String nome;
     private String senha;
     private String email;
-    
-    public CoordenadorDto convertToDto(Coordenador coordenador){
-        CoordenadorDto coordenadorDto = new CoordenadorDto(
-        this.getId(), 
-        this.getNome(), 
-        this.getSenha(), 
+
+    //tinha Coordenador coordenador como parametro
+    public Coordenador convert(Coordenador coordenador){
+        CoordenadorDto coordenadorDto1 = new CoordenadorDto(
+        this.getId(),
+        this.getNome(),
+        this.getSenha(),
         this.getEmail());
-        return coordenadorDto;
+        //return nao tinha o convertToDto
+        return coordenador;
     }
 
 
