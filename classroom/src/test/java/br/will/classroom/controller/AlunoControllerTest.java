@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package br.will.classroom.controller;
 
 import br.will.classroom.controller.dto.AlunoDto;
@@ -95,3 +96,27 @@ public class AlunoControllerTest {
         verify(alunoServiceImpl).deleteById(alunoDto.getId());
     }
 }
+=======
+package br.will.classroom.controller;
+
+import org.junit.jupiter.api.Test;
+
+public class AlunoControllerTest {
+
+    @Test
+    void createAluno() {
+    }
+
+    @Test
+    void pegarAlunoId() {
+    }
+
+    @Test
+    void atualizarAluno() {
+    }
+
+    @Test
+    void deleteById() {
+    }
+}
+>>>>>>> f7dea330874fc6ae04f349c39c3003d9014d2796

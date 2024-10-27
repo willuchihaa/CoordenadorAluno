@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 spring:
   datasource:
     url: jdbc:mariadb://localhost:3305/saladatabase
@@ -9,3 +10,16 @@ spring:
       ddl-auto: update
   flyway:
     baseline-on-migrate: true
+=======
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3305/saladatabase
+    username: root
+    password: lampi
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  flyway:
+    baseline-on-migrate: true
+>>>>>>> f7dea330874fc6ae04f349c39c3003d9014d2796
