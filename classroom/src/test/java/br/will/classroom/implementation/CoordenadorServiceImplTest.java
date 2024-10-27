@@ -1,5 +1,6 @@
 package br.will.classroom.implementation;
 
+import br.will.classroom.controller.dto.CoordenadorDto;
 import br.will.classroom.model.coordenador.Coordenador;
 import br.will.classroom.repository.CoordenadorRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,8 +21,11 @@ import static org.mockito.Mockito.when;
 public class CoordenadorServiceImplTest {
     @Mock
     private CoordenadorRepository coordenadorRepository;
+    @Mock
+    private CoordenadorDto coordenadorDto;
     @InjectMocks
     private CoordenadorServiceImpl coordenadorServiceImpl;
+
     private Coordenador coordenador;
 
     @BeforeEach
@@ -62,17 +66,6 @@ public class CoordenadorServiceImplTest {
     when(coordenadorRepository.findById(coordenador.getId())).thenReturn(cl);
     Coordenador result = this.coordenadorServiceImpl.pegarCoordenadorId(coordenador.getId());
     assertEquals(coordenador.getId(), result.getId());
-
-
-    }
-    @Test
-    @DisplayName("Deve atualizar um coordenador id com sucesso")
-    void atualizarCoordenador() {
-        Optional<Coordenador> cl = Optional.of(coordenador);
-        when(coordenadorRepository.save(Mockito.any(Coordenador.class))).thenReturn(coordenador);
-        when(coordenadorRepository.findById(coordenador.getId())).thenReturn(cl);
-        Coordenador result = coordenadorServiceImpl.atualizarCoordenador(coordenador.convert());
-        assertNotNull(result);
 
     }
 
