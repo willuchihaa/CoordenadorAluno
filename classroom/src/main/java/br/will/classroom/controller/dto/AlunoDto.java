@@ -16,14 +16,13 @@ import lombok.Setter;
 public class AlunoDto {
     public Long id;
     public String nome;
-    //converte entidade para dto
-    public AlunoDto convertToDto(Aluno aluno){
-        AlunoDto alunoDto = new AlunoDto();
-        alunoDto.setId(aluno.getId());
-        alunoDto.setNome(aluno.getNome());
-        return alunoDto;
 
+    public AlunoDto(Aluno aluno) {
     }
-    
-    
+    public Aluno convert(){
+        return new Aluno(this.id,this.nome);
+    }
 }
+    
+    
+

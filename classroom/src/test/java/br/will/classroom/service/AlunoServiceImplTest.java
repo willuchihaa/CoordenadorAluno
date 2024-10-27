@@ -1,6 +1,7 @@
-package br.will.classroom.implementation;
+package br.will.classroom.service;
 
 import br.will.classroom.controller.dto.AlunoDto;
+import br.will.classroom.implementation.AlunoServiceImpl;
 import br.will.classroom.model.alunos.Aluno;
 import br.will.classroom.repository.AlunoRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,13 +39,10 @@ class AlunoServiceImplTest {
     }
 
     @Test
-    @DisplayName("Deve criar alunos  com sucesso ")
-    void createAluno() {
-
+    @DisplayName("Deve criar alunos com sucesso ")
+    void deveCriarAlunoComSucesso() {
         when(this.alunoRepository.save(Mockito.any(Aluno.class))).thenReturn(aluno);
-
         Aluno result = this.alunoServiceImpl.createAluno(aluno.convert());
-
         assertEquals(aluno.getNome(), result.getNome());
         assertEquals(aluno.getId(), result.getId());
 
@@ -52,7 +50,7 @@ class AlunoServiceImplTest {
 
     @Test
     @DisplayName("Deve pegar um aluno pelo nome com sucesso ")
-    void pegarAlunosNome() {
+    void devePegarAlunosComSucessoPeloNome() {
         //quando o pegar o aluno pelo nome retorna o aluno
         when(alunoServiceImpl.pegarAlunosNome(aluno.getNome())).thenReturn(aluno);
 
@@ -63,7 +61,7 @@ class AlunoServiceImplTest {
 
     @Test
     @DisplayName("Deve pegar um aluno pelo id com sucesso ")
-    void pegarAlunosId() {
+    void devePegarAlunosComSucessoPeloId() {
         Optional<Aluno> cl = Optional.of(aluno);
         when(alunoRepository.findById(aluno.getId())).thenReturn(cl);
         Aluno result = this.alunoServiceImpl.pegarAlunosId(aluno.getId());
@@ -73,7 +71,7 @@ class AlunoServiceImplTest {
 
     @Test
     @DisplayName("Deve deletar um aluno pelo id com sucesso")
-    void deleteById() {
+    void deveDeletarAlunosComSucessoPeloId() {
         this.alunoServiceImpl.deleteById(aluno.getId());
         verify(alunoRepository).deleteById(aluno.getId());
     }

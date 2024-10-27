@@ -20,7 +20,7 @@ public class AlunoServiceImpl implements AlunoService{
     }
     @Override
     public Aluno createAluno(AlunoDto alunoDto) {
-        Aluno aluno = new Aluno();
+        Aluno aluno = new Aluno(alunoDto.getId(),alunoDto.getNome());
         return this.alunoRepository.save(aluno);
     }
     @Override

@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,16 +21,13 @@ public class CoordenadorDto {
     private String senha;
     private String email;
 
-    //tinha Coordenador coordenador como parametro
-    public Coordenador convert(Coordenador coordenador){
-        CoordenadorDto coordenadorDto1 = new CoordenadorDto(
-        this.getId(),
-        this.getNome(),
-        this.getSenha(),
-        this.getEmail());
-        //return nao tinha o convertToDto
-        return coordenador;
+    public CoordenadorDto(Coordenador coordenador) {
     }
+
+    public Coordenador convert(){
+        return new Coordenador(id,nome,senha,email);
+    }
+
 
 
 }

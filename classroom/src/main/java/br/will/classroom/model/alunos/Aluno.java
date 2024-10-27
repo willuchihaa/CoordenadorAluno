@@ -24,7 +24,7 @@ public class Aluno {
     public String nome;
 
     public AlunoDto convert() {
-        return new AlunoDto(this.getId(), this.getNome());
+        return new AlunoDto(new Aluno(this.getId(), this.getNome()));
     }
 
 

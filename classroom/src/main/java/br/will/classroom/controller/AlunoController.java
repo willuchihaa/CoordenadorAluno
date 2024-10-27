@@ -1,5 +1,7 @@
 package br.will.classroom.controller;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,24 +27,29 @@ public class AlunoController {
     public AlunoController(AlunoService alunoService) {
         this.alunoService = alunoService;
     }
+
+    @ApiResponses(value = @ApiResponse(responseCode = "200", description = "salvar e registrar alunos "))
     @PostMapping("/criarAluno")
         public ResponseEntity<Aluno> createAluno(@RequestBody AlunoDto alunoDto) {
             return ResponseEntity.status(200).body(this.alunoService.createAluno(alunoDto));
     }
-
+    @ApiResponses(value = @ApiResponse(responseCode = "200", description = "pegar alunos pelo seu id "))
     @GetMapping("/pegarAlunoId {id}")
         public ResponseEntity<Aluno> pegarAlunoId(@PathVariable Long id) {
             return ResponseEntity.status(200).body(this.alunoService.pegarAlunosId(id));
     }
+    @ApiResponses(value = @ApiResponse(responseCode = "200", description = "Pega alunos pelo nome "))
     @GetMapping("/pegarAlunoNome {nome}")
         public ResponseEntity<Object> pegarAlunoNome(@PathVariable String nome) {
             return ResponseEntity.status(200).body(this.alunoService.pegarAlunosNome(nome).convert());
     }
+    @ApiResponses(value = @ApiResponse(responseCode = "200", description = "Atualiza informações de um aluno"))
     @PutMapping(value = "/atualizarAluno")
-        public ResponseEntity<Object> atualizarAluno(@RequestBody AlunoDto alunoDto) {
+        public ResponseEntity<AlunoDto> atualizarAluno(@RequestBody AlunoDto alunoDto) {
             return ResponseEntity.status(200).body(this.alunoService.atualizarAluno(alunoDto).convert());
         }
-    @DeleteMapping("/deletarAlunoId")
+    @ApiResponses(value = @ApiResponse(responseCode = "200", description = "Apaga um aluno pelo seu id "))
+    @DeleteMapping("/deletarAlunoId {id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){
         this.alunoService.deleteById(id);
             return ResponseEntity.ok().build();

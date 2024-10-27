@@ -25,7 +25,6 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public String login(Login login) {
         var userauth = new UsernamePasswordAuthenticationToken(login, login, null);
-
         var auth = this.authenticationManager.authenticate(userauth);
         var user = (Usuario) auth.getPrincipal();
         return tokenService.criarToken(new Token(user.getUsername()));

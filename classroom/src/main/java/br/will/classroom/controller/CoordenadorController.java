@@ -1,5 +1,7 @@
 package br.will.classroom.controller;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,18 +26,22 @@ public class CoordenadorController {
     public CoordenadorController(CoordenadorService coordenadorService) {
         this.coordenadorService = coordenadorService;
     }
+    @ApiResponses(value = @ApiResponse(responseCode = "200", description = "Salva e Registra Coordenadores "))
     @PostMapping("/criarCoordenador")
     public ResponseEntity<CoordenadorDto> criarCoordenador(@RequestBody CoordenadorDto coordenadorDto) {
         return ResponseEntity.status(200).body(this.coordenadorService.criarCoordenador(coordenadorDto).convert());
     }
+    @ApiResponses(value = @ApiResponse(responseCode = "200", description = "Pega informações de Coordenadores pelo seu id "))
     @GetMapping("/pegarCoordenadorId {id}")
     public ResponseEntity<CoordenadorDto> pegarCoordenadorId(@PathVariable Long id) {
         return ResponseEntity.status(200).body(this.coordenadorService.pegarCoordenadorId(id).convert());
     }
+    @ApiResponses(value = @ApiResponse(responseCode = "200", description = "Atualiza informações de um Coordenador "))
     @PutMapping("/atualizarCoordenador")
     public ResponseEntity <CoordenadorDto> atualizarCoordenador(@RequestBody CoordenadorDto coordenadorDto) {
         return ResponseEntity.ok().body(this.coordenadorService.atualizarCoordenador(coordenadorDto).convert());
     }
+    @ApiResponses(value = @ApiResponse(responseCode = "200", description = "Deleta as informações de um Coordenador pelo seu id"))
     @DeleteMapping("/deletarCoordeandorId {id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){
         this.coordenadorService.deleteById(id);

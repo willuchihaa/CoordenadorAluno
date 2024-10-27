@@ -1,5 +1,6 @@
-package br.will.classroom.implementation;
+package br.will.classroom.service;
 
+import br.will.classroom.implementation.CoordenadorServiceImpl;
 import br.will.classroom.model.coordenador.Coordenador;
 import br.will.classroom.repository.CoordenadorRepository;
 import org.junit.jupiter.api.BeforeEach;
