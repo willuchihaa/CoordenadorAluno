@@ -5,7 +5,6 @@ import br.will.classroom.implementation.StudentServiceImpl;
 import br.will.classroom.model.student.Student;
 import br.will.classroom.repository.StudentRepository;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,8 +19,7 @@ import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,7 +27,7 @@ public class StudentControllerTest {
     @InjectMocks
     private StudentController studentController;
     @Mock
-    private StudentServiceImpl alunoServiceImpl;
+    private StudentServiceImpl studentServiceImpl;
     @Mock
     private StudentRepository studentRepository;
     @Mock
@@ -46,9 +44,9 @@ public class StudentControllerTest {
     }
     @Test
     @DisplayName("Must Save Student ")
-    void mustSaveStudentWithAlunoDto() {
-        when(alunoServiceImpl.createAluno(Mockito.any(StudentDto.class))).thenReturn(studentDto.convert());
-        StudentDto result = studentController.createAluno(studentDto).getBody().convert();
+    void mustSaveStudentWithStudentDto() {
+        when(studentServiceImpl.createStudent(Mockito.any(StudentDto.class))).thenReturn(studentDto.convert());
+        StudentDto result = studentController.createStudent(studentDto).getBody().convert();
         assertNotNull(result);
         assertEquals(studentDto.getId(), result.getId());
         assertEquals(studentDto.getNome(), result.getNome());
@@ -57,8 +55,8 @@ public class StudentControllerTest {
 
     @Test
     @DisplayName("Must Get Student by Id ")
-    void mustGetAnyStudentIdUsingAlunotDto() {
-        when(alunoServiceImpl.getStudentId(anyLong())).thenReturn(studentDto.convert());
+    void mustGetAnyStudentIdUsingStudentDto() {
+        when(studentServiceImpl.getStudentId(anyLong())).thenReturn(studentDto.convert());
         ResponseEntity<Student> result = studentController.getStudentId(anyLong());
         assertNotNull(result.getBody());
         assertEquals(studentDto.getId(), result.getBody().getId());
@@ -69,19 +67,19 @@ public class StudentControllerTest {
 
     @Test
     @DisplayName("Must Update Student ")
-    void mustUpdateStudentWithAlunoDto() {
-        when(alunoServiceImpl.updateStudent(studentDto.id, studentDto)).thenReturn(studentDto.convert());
-        ResponseEntity<StudentDto> result = studentController.updateStudent(studentDto.id, studentDto);
-        Assertions.assertNotNull(result.getBody());
+    void mustUpdateStudentWithStudentDto() {
+        when(studentServiceImpl.updateStudent(studentDto)).thenReturn(studentDto.convert());
+        ResponseEntity<StudentDto> result = studentController.updateStudent(studentDto);
+        assertNotNull(result.getBody());
         assertEquals(studentDto.getId(), result.getBody().getId());
         assertEquals(studentDto.getNome(), result.getBody().getNome());
 
     }
     @Test
     @DisplayName("Must Delete Student by Id ")
-    void mustDeleteOneStudentByIdUsingAlunoDtoWithSucesso() {
-        doNothing().when(this.alunoServiceImpl).deleteById(studentDto.getId());
+    void mustDeleteOneStudentByIdUsingStudentDtoWithSucess() {
+        doNothing().when(this.studentServiceImpl).deleteById(studentDto.getId());
         ResponseEntity<Void> result = studentController.deleteById(studentDto.getId());
-        verify(alunoServiceImpl).deleteById(studentDto.getId());
+        verify(studentServiceImpl).deleteById(studentDto.getId());
     }
 }

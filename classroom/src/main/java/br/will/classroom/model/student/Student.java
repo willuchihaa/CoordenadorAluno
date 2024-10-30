@@ -21,6 +21,8 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
+    @Setter
     public String nome;
 
     public StudentDto convert() {

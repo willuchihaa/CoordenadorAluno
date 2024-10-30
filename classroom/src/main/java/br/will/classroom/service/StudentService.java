@@ -6,7 +6,7 @@ import br.will.classroom.controller.dto.StudentDto;
 import br.will.classroom.model.student.Student;
 
 public interface StudentService {
-    Student createAluno(StudentDto studentDto);
+    Student createStudent(StudentDto studentDto);
 
     List<Student> getStudent();
 
@@ -14,7 +14,7 @@ public interface StudentService {
 
     Student getStudentId(Long id);
 
-    Student updateStudent(Long id, StudentDto studentDto);
+    Student updateStudent(StudentDto studentDto);
 
     void deleteById(Long id);
 }

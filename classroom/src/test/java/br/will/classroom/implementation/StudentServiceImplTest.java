@@ -1,5 +1,8 @@
 package br.will.classroom.implementation;
 
+import br.will.classroom.controller.dto.CoordinatorDto;
+import br.will.classroom.controller.dto.StudentDto;
+import br.will.classroom.model.coordinator.Coordinator;
 import br.will.classroom.model.student.Student;
 import br.will.classroom.repository.StudentRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,17 +40,32 @@ class StudentServiceImplTest {
 
     @Test
     @DisplayName("Must Create Students ")
-    void createAluno() {
-        when(this.studentRepository.save(Mockito.any(Student.class))).thenReturn(student);
-        Student result = this.studentServiceImpl.createAluno(student.convert());
-        assertEquals(student.getNome(), result.getNome());
+    void shouldCreateStudentWhenSavedWithStudentDto() {
+        when(studentRepository.save(Mockito.any(Student.class))).thenReturn(student);
+        Student result = studentServiceImpl.createStudent(student.convert());
         assertEquals(student.getId(), result.getId());
+        assertEquals(student.getNome(), result.getNome());
+    }
+    @Test
+    @DisplayName("Must ThrowAIllegalStateException ")
+    void shouldThrowAIllegalStateExceptionWhenCreateStudentWithNameIsNull(){
+        StudentDto studentDto = new StudentDto();
+        studentDto.setNome(null);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            studentServiceImpl.createStudent(studentDto);
+        });
+        assertEquals("The Student name cannot be null", exception.getMessage());
+    }
+
+
+    @Test
+    void shouldThrowAIllegalStateExceptionWhenCreateStudentWithNameEmpty(){
 
     }
 
     @Test
     @DisplayName("Must Get Students With Name ")
-    void getStudentName() {
+    void shouldGetStudenNameAndReturnStudent() {
         when(studentServiceImpl.getStudentName(anyString())).thenReturn(student);
         Student result = this.studentServiceImpl.getStudentName(student.getNome());
         assertEquals(student.getId(), result.getId());
@@ -56,7 +74,7 @@ class StudentServiceImplTest {
 
     @Test
     @DisplayName("Must Get Student With Id ")
-    void getStudentId() {
+    void shouldGetStudentIdAndReturnStudent() {
         Optional<Student> cl = Optional.of(student);
         when(studentRepository.findById(student.getId())).thenReturn(cl);
         Student result = this.studentServiceImpl.getStudentId(student.getId());
@@ -67,7 +85,7 @@ class StudentServiceImplTest {
 
     @Test
     @DisplayName("Must Delete Student With Id")
-    void deleteById() {
+    void shouldDeleteAStuentWithId() {
         this.studentServiceImpl.deleteById(student.getId());
         verify(studentRepository).deleteById(student.getId());
     }

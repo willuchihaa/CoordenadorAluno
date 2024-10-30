@@ -18,6 +18,8 @@ public class StudentDto {
     public String nome;
 
     public StudentDto(Student student) {
+        this.id = student.getId();
+        this.nome = student.getNome();
     }
     public Student convert(){
         return new Student(this.id,this.nome);

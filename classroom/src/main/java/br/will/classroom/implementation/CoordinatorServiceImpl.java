@@ -21,12 +21,11 @@ public class CoordinatorServiceImpl implements CoordinatorService {
 
     @Override
     public Coordinator createCoordinator(CoordinatorDto coordinatorDto) {
-        Coordinator coordinator = new Coordinator(coordinatorDto.getId(),
-        coordinatorDto.getNome(),
-        coordinatorDto.getSenha(),
-        coordinatorDto.getEmail());
+        Coordinator coordinator = new Coordinator(coordinatorDto.getId(), coordinatorDto.getNome(), coordinatorDto.getSenha(), coordinatorDto.getEmail());
+        if (coordinator.getNome() == null || coordinatorDto.getNome().isEmpty() ){
+            throw new IllegalArgumentException("The Coordinator name cannot be null");
+        }
         return this.coordinatorRepository.save(coordinator);
-
     }
     @Override
     public List<Coordinator> getAllCoordinators() {

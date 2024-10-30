@@ -13,8 +13,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
-import static junit.framework.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -41,10 +40,9 @@ public class CoordinatorServiceImplTest {
 
     @Test
     @DisplayName("Must create coordinators ")
-    void criarCoordenador() {
+    void shouldCreateCoordinatorWithSucess() {
         when(coordinatorRepository.save(Mockito.any(Coordinator.class))).thenReturn(coordinator);
         Coordinator result = coordinatorServiceImpl.createCoordinator(coordinator.convert());
-
         assertEquals(coordinator.getId(), result.getId());
         assertEquals(coordinator.getNome(), result.getNome());
         assertEquals(coordinator.getSenha(), result.getSenha());
@@ -52,15 +50,29 @@ public class CoordinatorServiceImplTest {
     }
 
     @Test
+    void shouldThrowAIllegalStateExceptionWhenCreateCoordinatorWithNameNull(){
+        CoordinatorDto coordinatorDto = new CoordinatorDto();
+        coordinatorDto.setNome(null);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            coordinatorServiceImpl.createCoordinator(coordinatorDto);
+        });
+        assertEquals("The Coordinator name cannot be null", exception.getMessage());
+    }
+    @Test
+    void createCoordinatorWithNameEmpty(){
+
+    }
+
+    @Test
     @DisplayName("Must get names of coordinators ")
-    void pegarCoordenadorNome() {
+    void MustGetCoordinatorWithName() {
         when(coordinatorServiceImpl.getCoordinatorName(coordinator.getNome())).thenReturn(coordinator);
         Coordinator result = this.coordinatorServiceImpl.getCoordinatorName(coordinator.getNome());
         assertEquals(coordinator.getNome(), result.getNome());
     }
     @Test
     @DisplayName("Must get a coordinator by id")
-    void pegarCoordenadorId() {
+    void MustGetCoordinatorWithId() {
     Optional<Coordinator> cl = Optional.of(coordinator);
     when(coordinatorRepository.findById(coordinator.getId())).thenReturn(cl);
     Coordinator result = this.coordinatorServiceImpl.getCoordinatorId(coordinator.getId());
